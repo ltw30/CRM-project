@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@tanstack/react-router": "^1.78.2",
+    "@tanstack/router-devtools": "^1.78.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -10,6 +12,7 @@
     "@types/node": "^16.18.118",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "ag-grid-react": "^32.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
