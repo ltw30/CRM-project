@@ -1,10 +1,26 @@
+/* 기본 텍스트 색상 */
+body, h1, h2, h3, p, a {
+    color: #000;
+}
+
 .body {
     width: 100%;
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-direction: row;
     background-color: #fff;
+}
+
+.darkMode .body {
+    background-color: #305673;
+}
+
+.darkMode h1, h2, h3, p, a{
+    color : #fff;
+}
+
+.darkMode svg {
+    fill : #fff;
 }
 
 /* 왼쪽 메뉴 바 (고정) */
@@ -13,37 +29,36 @@
     top: 0;
     left: 0;
 
-    width: 300px;
+    width: 260px;
     height: 100vh;
+    z-index: 300;
 
     padding: 10px;
     background-color: #fff;
-    border: 1px solid #305673;
+    border: 1px solid #ACB9CC;
     border-radius: 0 20px 20px 0;
+    box-shadow: 2px 0 2px #aaa;
     display: flex;
     flex-direction: column;
     justify-content: start;
     gap: 20px;
+
+    transition: width 0.4s ease-in-out;
+}
+
+.darkMode .aside{
+    background-color: #305673;
+    border: 1px solid #ACB9CC;
+}
+
+.aside a{
+    width: fit-content;
 }
 
 .aside .profile_cont {
-    width: 100%;
-    height: 60px;
-    padding: 0;
-    font-size: 24px;
-    line-height: 40px;
-    font-weight: 600;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.profile_cont .profile_inner {
     width: fit-content;
-    height: 100%;
-    padding-left: 10px;
+    height: 60px;
+    padding: 0 10px;
     font-size: 24px;
     line-height: 40px;
     font-weight: 600;
@@ -57,39 +72,93 @@
     cursor: pointer;
 }
 
-.profile_cont .profile_inner .userImg {
+.aside .userImg {
     width: 36px;
     height: 36px;
     background-color: #305673;
     border-radius: 50%;
 }
 
-.profile_cont figure{
-    width: fit-content;
-    cursor: pointer;
+.darkMode .userImg {
+    background-color: #ACB9CC;
+}
+
+.aside .profile_cont svg{
+    transition: 0.2s ease-in-out;
+}
+
+.aside .profile_cont:hover svg{
+    transform: scale(1.1);
+}
+
+.aside .profile_cont h2{
+    transition: 0.2s ease-in-out;
+}
+
+.aside .profile_cont:hover h2{
+    opacity: 0.6;
+}
+
+.aside figure{
+    width: 100%;
+    height: 80px;
+    padding: 0 10px;
+
     display: flex;
     flex-direction: row;
+    align-items: start;
+    justify-content: end;
+
+    gap: 10px;
+
+    cursor: pointer;
+}
+
+.aside figure button{
+    height: 40px;
+    width: 40px;
+
+    display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
+}
+
+.aside figure button:nth-child(0){
+    order: 1;
+}
+
+.aside figure button:nth-child(1){
+    order: 2;
 }
 
 
-.profile_cont figure .chgId {
+.aside figure .chgId {
     width: 30px;
     height: 30px;
     transition: 0.2s ease-in-out;
 }
 
-.profile_cont figure .chgId:hover{
+.aside figure .chgId:hover{
     transform: scale(1.2);
+    fill-opacity: 0.7;
 }
 
-.profile_cont figure .leftArr {
+.aside figure .leftArr {
     transition: 0.2s ease-in-out;
 }
 
-.profile_cont figure .leftArr:hover{
+.aside figure .leftArr:hover{
     transform: scale(1.2);
+    fill-opacity: 0.7;
+}
+
+.aside figure .rightArr {
+    transition: 0.2s ease-in-out;
+}
+
+.aside figure .rightArr:hover{
+    transform: scale(1.2);
+    fill-opacity: 0.7;
 }
 
 .aside h2 {
@@ -118,11 +187,15 @@
 }
 
 .aside nav ul:not(:first-child) {
-    border-top: 2px solid #305673;
+    border-top: 2px solid #ACB9CC;
+}
+
+.aside nav ul a{
+    width: 100%;
 }
 
 .aside nav ul li {
-    padding: 0 10px;
+    padding-left: 4px;
     width: 100%;
     height: 50px;
     /* background-color: #fff; */
@@ -142,11 +215,18 @@
 
 .aside nav ul li h3 {
     font-size: 22px;
-    line-height: 50px;
 }
 
 .aside nav ul li:hover {
     background-color: rgba(0, 0, 0, 0.1);
+}
+
+.aside nav ul li svg {
+    transition: all 0.2s ease-in-out;
+}
+
+.aside nav ul li:hover svg {
+    transform: scale(1.1);
 }
 
 /* rside : 오른쪽 header, main, footer 를 감싼 container */
@@ -155,13 +235,15 @@
     position: absolute;
     top: 0;
     right: 0;
-    /* aside + gap 제외 */
-    width: calc(100% - 300px);
+    /* aside 제외 */
+    width: calc(100% - 260px);
     height: fit-content;
     min-height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    transition: width 0.4s ease-in-out;
 }
 
 .header,
@@ -180,8 +262,14 @@
     border-bottom: 2px solid #305673;
 }
 
+.darkMode .rside .header {
+    background-color: #305673;
+    border-top: 2px solid #ACB9CC;
+    border-bottom: 2px solid #ACB9CC;
+}
+
 .rside .header h1 {
-    height: 180px;
+    height: 100%;
     line-height: 170px;
     font-size: 80px;
     font-weight: 600;
@@ -189,6 +277,12 @@
     color: #305673;
     border-top: 5px dotted #305673;
     border-bottom: 5px dotted #305673;
+}
+
+.darkMode .rside .header h1 {
+    color: #fff;
+    border-top: 5px dotted #ACB9CC;
+    border-bottom: 5px dotted #ACB9CC;
 }
 
 /* main */
@@ -210,5 +304,5 @@
 .rside .footer {
     width: 100%;
     height: 100px;
-    background-color: #305673;
+    background-color: #ACB9CC;
 }
