@@ -1,134 +1,52 @@
-.body{
+.body {
     width: 100%;
     min-height: 100vh;
-    display: grid;
-    grid-template-columns: 300px auto;
-    grid-template-rows: 200px auto 100px;
-    grid-template-areas: 
-        "sidebar header"
-        "sidebar content"
-        "sidebar footer"
-    ;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
     background-color: #fff;
 }
-.header{
-    grid-area: header;
-    padding: 10px 0;
-    width: 100%;
-    height: 100%;
 
-    background-color: #fff;
-    border-top: 2px solid #305673;
-    border-bottom: 2px solid #305673;
-}
-.header>h1{
-    height: 180px;
-    line-height: 170px;
-    font-size: 80px;
-    font-weight: 600;
-    text-align: center;
-    color: #305673;
+/* 왼쪽 메뉴 바 (고정) */
+.aside {
+    position: fixed;
+    top: 0;
+    left: 0;
 
-    border-top: 5px dotted #305673;
-    border-bottom: 5px dotted #305673;
-}
+    width: 300px;
+    height: 100vh;
 
-.sidebar{
-    grid-area: sidebar;
     padding: 10px;
-    width: 100%;
-    height: 100%;
-
     background-color: #fff;
-    border-radius: 20px;
-
+    border: 1px solid #305673;
+    border-radius: 0 20px 20px 0;
     display: flex;
     flex-direction: column;
     justify-content: start;
     gap: 20px;
 }
-.sidebar>.profile_cont{
-    padding: 20px;
-    width: 100%;
-    height: 200px;
 
-    border: 2px solid #eee;
-    border-radius: 10px;
+.aside .profile_cont {
+    width: 100%;
+    height: 60px;
+    padding: 0;
     font-size: 24px;
     line-height: 40px;
     font-weight: 600;
-
-    box-shadow: 0 0 10px #eee;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: start;
-
-    cursor: pointer;
-}
-.sidebar>.profile_cont:hover{
-    background-color: rgba(0,0,0,0.1);
-}
-
-.sidebar>.profile_cont>.profile_inner{
-    width: 100%;
-    height: 100%;
-
-    border: 2px solid #eee;
-    border-radius: 10px;
-    font-size: 24px;
-    line-height: 40px;
-    font-weight: 600;
-
-    box-shadow: 0 0 10px #eee;
 
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-
-    cursor: pointer;
-}
-.sidebar>.profile_cont>.profile_inner>img{
-    width: 60px;
-    height: 60px;
 }
 
-.sidebar>.profile_cont>h2{
-    font-size: 28px;
-    font-weight: 600;
-}
-
-.sidebar>h1{
-    font-size: 30px;
-    font-weight: 600;
-    text-align: center;
-}
-
-.sidebar>ul{
-    width: 100%;
-    height: fit-content;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    gap: 20px;
-}
-
-.sidebar>ul>li{
-    padding: 0 10px;
-    width: 100%;
-    height: 50px;
-    background-color: #fff;
-    border-radius: 10px;
-    border: 2px solid #eee;
+.profile_cont .profile_inner {
+    width: fit-content;
+    height: 100%;
+    padding-left: 10px;
     font-size: 24px;
     line-height: 40px;
     font-weight: 600;
-
-    box-shadow: 0 0 10px #eee;
 
     display: flex;
     flex-direction: row;
@@ -138,32 +56,159 @@
 
     cursor: pointer;
 }
-.sidebar>ul>li>img{
-    width: 24px;
-    height: 24px;
+
+.profile_cont .profile_inner .userImg {
+    width: 36px;
+    height: 36px;
+    background-color: #305673;
+    border-radius: 50%;
 }
-.sidebar>ul>li>h3{
+
+.profile_cont figure{
+    width: fit-content;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.profile_cont figure .chgId {
+    width: 30px;
+    height: 30px;
+    transition: 0.2s ease-in-out;
+}
+
+.profile_cont figure .chgId:hover{
+    transform: scale(1.2);
+}
+
+.profile_cont figure .leftArr {
+    transition: 0.2s ease-in-out;
+}
+
+.profile_cont figure .leftArr:hover{
+    transform: scale(1.2);
+}
+
+.aside h2 {
     font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.aside nav {
+    width: 100%;
+    padding: 10px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.aside nav ul {
+    width: 100%;
+    padding: 20px 0;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 20px;
+}
+
+.aside nav ul:not(:first-child) {
+    border-top: 2px solid #305673;
+}
+
+.aside nav ul li {
+    padding: 0 10px;
+    width: 100%;
+    height: 50px;
+    /* background-color: #fff; */
+    border-radius: 10px;
+    /* border: 2px solid #eee; */
+    font-size: 24px;
+    line-height: 40px;
+    font-weight: 600;
+    /* box-shadow: 0 0 10px #eee; */
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.aside nav ul li h3 {
+    font-size: 22px;
     line-height: 50px;
 }
 
-.sidebar>ul>li:hover{
-    background-color: rgba(0,0,0,0.1);
+.aside nav ul li:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
-.content{
-    grid-area: content;
+/* rside : 오른쪽 header, main, footer 를 감싼 container */
+
+.rside {
+    position: absolute;
+    top: 0;
+    right: 0;
+    /* aside + gap 제외 */
+    width: calc(100% - 300px);
+    height: fit-content;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.header,
+.main,
+.footer {
+    padding: 20px;
+}
+
+/* header */
+.rside .header {
+    padding: 10px 0;
+    width: 100%;
+    height: 200px;
+    background-color: #fff;
+    border-top: 2px solid #305673;
+    border-bottom: 2px solid #305673;
+}
+
+.rside .header h1 {
+    height: 180px;
+    line-height: 170px;
+    font-size: 80px;
+    font-weight: 600;
+    text-align: center;
+    color: #305673;
+    border-top: 5px dotted #305673;
+    border-bottom: 5px dotted #305673;
+}
+
+/* main */
+.rside .main {
+    width: 100%;
+    height: fit-content;
+    /* flex: 1; */
+
     padding-top: 20px;
 
-    border-radius: 20px;
-    border: 2px solid #fff;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 10px;
 }
 
-.footer{
-    grid-area: footer;
+/* footer */
+.rside .footer {
     width: 100%;
-    height: 100%;
-
-    background-color: #fff;
-    border-radius: 20px;
+    height: 100px;
+    background-color: #305673;
 }

@@ -7,8 +7,11 @@ const App: React.FC = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/main" element={<Main />} />
+        {/* 로그인 라우터  */}
+        {/* <Route path="/" element={<Login />} />
+        <Route path="/main" element={<Main />} /> */}
+        {/* 메인 테스트용 라우터 */}
+        <Route path="/" element={<Main />} />
       </Routes>
     </Router>
   );
