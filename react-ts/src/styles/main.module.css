@@ -43,6 +43,8 @@ body, h1, h2, h3, p, a {
     justify-content: start;
     gap: 20px;
 
+    overflow-y: auto;
+
     transition: width 0.4s ease-in-out;
 }
 
@@ -256,33 +258,32 @@ body, h1, h2, h3, p, a {
 .rside .header {
     padding: 10px 0;
     width: 100%;
-    height: 200px;
-    background-color: #fff;
-    border-top: 2px solid #305673;
+    height: 100px;
+    /* border-top: 2px solid #305673; */
     border-bottom: 2px solid #305673;
 }
 
 .darkMode .rside .header {
     background-color: #305673;
-    border-top: 2px solid #ACB9CC;
+    /* border-top: 2px solid #ACB9CC; */
     border-bottom: 2px solid #ACB9CC;
 }
 
 .rside .header h1 {
     height: 100%;
-    line-height: 170px;
-    font-size: 80px;
+    line-height: 80px;
+    font-size: 40px;
     font-weight: 600;
     text-align: center;
     color: #305673;
-    border-top: 5px dotted #305673;
-    border-bottom: 5px dotted #305673;
+    /* border-top: 5px dotted #305673; */
+    /* border-bottom: 5px dotted #305673; */
 }
 
 .darkMode .rside .header h1 {
     color: #fff;
-    border-top: 5px dotted #ACB9CC;
-    border-bottom: 5px dotted #ACB9CC;
+    /* border-top: 5px dotted #ACB9CC; */
+    /* border-bottom: 5px dotted #ACB9CC; */
 }
 
 /* main */

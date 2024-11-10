@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { ColDef, ColGroupDef, ValueGetterParams } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
@@ -14,13 +13,14 @@ import { ReactComponent as LiIcon } from "./img/featured_play_list.svg";
 import { ReactComponent as HomeIcon } from "./img/home.svg";
 import { ReactComponent as CallIcon } from "./img/call.svg";
 import { ReactComponent as StarIcon } from "./img/star.svg";
+import axios from "axios";
 
 const CustomButtonComponent = () => {
   return <button onClick={() => window.alert("clicked")}>Push Me!</button>;
 };
 
 const GridExample = () => {
-  const [rowData, setRowData] = useState<any[]>([
+  const [rowData, setRowData] = useState([
     {
       name: "KNUCS",
       domain: "교육",
@@ -76,12 +76,10 @@ const GridExample = () => {
       curState: "대기",
     },
   ]);
-  const [columnDefs, setColumnDefs] = useState<
-    (ColDef<any, any> | ColGroupDef<any>)[]
-  >([
+  const [columnDefs, setColumnDefs] = useState([
     {
       headerName: "이름(회사명)",
-      valueGetter: (p: ValueGetterParams) => p.data.name,
+      valueGetter: (p) => p.data.name,
       flex: 1,
     },
     { headerName: "분야", field: "domain", flex: 1 },
@@ -96,12 +94,52 @@ const GridExample = () => {
     },
     { field: "속성 추가", cellRenderer: CustomButtonComponent, flex: 0.5 },
   ]);
+  // JSON으로 로컬에 저장
+  const saveToLocalStorage = (data) => {
+    localStorage.setItem("rowData", JSON.stringify(data));
+  };
+
+  // 로컬에서 데이터 불러오기
+  useEffect(() => {
+    const savedData = localStorage.getItem("rowData");
+    if (savedData) {
+      setRowData(JSON.parse(savedData));
+    }
+  }, []);
+
+  // 행 추가 함수
+  const addRow = () => {
+    const newRow = {
+      name: "새로운 회사",
+      domain: "새로운 분야",
+      dealCnt: 0,
+      electric: null,
+      desc: "새로운 설명",
+      manager: "새로운 담당자",
+      curState: "대기",
+    };
+    const updatedRowData = [...rowData, newRow];
+    setRowData(updatedRowData);
+    saveToLocalStorage(updatedRowData); // 로컬 저장
+  };
+
+  // 수정된 데이터 저장
+  const onCellValueChanged = (params) => {
+    const updatedRowData = [...params.api.getRowData()];
+    setRowData(updatedRowData);
+    saveToLocalStorage(updatedRowData); // 수정 후 로컬 저장
+  };
+
   return (
     <div
       style={{ width: "100%", height: "350px" }}
       className={"ag-theme-quartz"}
     >
-      <AgGridReact rowData={rowData} columnDefs={columnDefs} />
+      <AgGridReact
+        rowData={rowData}
+        columnDefs={columnDefs}
+        onCellValueChanged={onCellValueChanged}
+      />
     </div>
   );
 };
@@ -162,14 +200,28 @@ const Navigation = () => {
   );
 };
 
-const Main: React.FC = () => {
+const Main = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // 세션 정보가 자동으로 포함되도록 withCredentials 설정
+    axios
+      .get("/api/user", { withCredentials: true })
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((error) => {
+        console.error("사용자 정보 가져오기 실패", error);
+      });
+  }, []);
+
   // 사이드바가 열려 있는지 여부를 관리하는 상태
   const [isSidebarVisible, setIsSidebarVisible] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(false); // 다크 모드 상태 관리
 
   // `ref`를 통해 DOM 요소 직접 접근
-  const mainRef = useRef<HTMLDivElement>(null);
-  const sidebarRef = useRef<HTMLDivElement>(null);
+  const mainRef = useRef(null);
+  const sidebarRef = useRef(null);
 
   // 사이드바 토글 함수
   const toggleSidebar = () => {
@@ -192,25 +244,19 @@ const Main: React.FC = () => {
       const anchors = sidebarRef.current.querySelectorAll("a");
       if (anchors) {
         anchors.forEach((a) => {
-          (a as HTMLAnchorElement).style.width = isSidebarVisible
-            ? "218px"
-            : "100%";
+          a.style.width = isSidebarVisible ? "218px" : "100%";
         });
       }
       // 사이드바 안의 h2, h3 요소 가시성 제어
       const headings = sidebarRef.current.querySelectorAll("h2, h3");
       headings.forEach((heading) => {
-        (heading as HTMLHeadingElement).style.display = isSidebarVisible
-          ? "block"
-          : "none";
+        heading.style.display = isSidebarVisible ? "block" : "none";
       });
       const figure = sidebarRef.current.querySelector("figure");
       if (figure) {
         figure.style.flexDirection = isSidebarVisible ? "row" : "column";
         figure.querySelectorAll("button").forEach((button, idx) => {
-          (button as HTMLButtonElement).style.order = isSidebarVisible
-            ? `${idx + 1}`
-            : `${2 - idx}`;
+          button.style.order = isSidebarVisible ? `${idx + 1}` : `${2 - idx}`;
         });
       }
     }
@@ -252,7 +298,7 @@ const Main: React.FC = () => {
           <Link to="/profile">
             <div className={styles.profile_cont}>
               <UserImg className={styles.userImg} />
-              <h2>김컴학</h2>
+              <h2>{user ? `${user.name}` : "김컴학"}</h2>
             </div>
           </Link>
           <Navigation />

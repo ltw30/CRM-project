@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Login';  // 로그인 컴포넌트
 import Main from './main';    // 메인 컴포넌트
 
-const App: React.FC = () => {
+const App = () => { // TypeScript 제거
   return (
     <Router>
       <Routes>
