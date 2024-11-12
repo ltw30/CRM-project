@@ -18,9 +18,9 @@ public class MemberRepository {
         em.persist(member);
     }
 
-    // 회원 조회 메서드 (회원 단건 포함)
-    public Member findById(Long id) {
-        return em.find(Member.class, id);
+    // 회원 조회 메서드 (회원 단건 조회)
+    public Member findOne(Long genId) {
+        return em.find(Member.class, genId);
     }
 
     // 회원 조회 메서드 (회원 리스트 조회)
@@ -30,9 +30,9 @@ public class MemberRepository {
     }
 
     // 회원 조회 메서드 (이름으로 조회)
-    public List<Member> findByName(String name) {
-        return em.createQuery("select m from Member m where m.name = :name", Member.class)
-                .setParameter("name", name)
+    public List<Member> findByIdForValidation(String id) {
+        return em.createQuery("select m from Member m where m.id = :id", Member.class)
+                .setParameter("id", id)
                 .getResultList();
     }
 }

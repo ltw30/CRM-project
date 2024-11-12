@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -24,5 +25,5 @@ public class Member {
     private String phone;
     private String email;
     private Date birth;
-//    private ArrayList<>
+    //private List<Deal> Deals = new ArrayList<>();
 }

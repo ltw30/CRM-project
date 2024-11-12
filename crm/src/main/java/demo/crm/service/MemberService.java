@@ -25,9 +25,9 @@ public class MemberService {
     }
 
     private void validateDuplicateMember(Member member) {
-        List<Member> findMembers = memberRepository.findByName(member.getName());
-        if (!findMembers.isEmpty()) { // findMember.isEmpty()가 참이 아니면, 중복 회원이 있다는 뜻 -> 뭔가 잘못되었다는 것
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        List<Member> findMembers = memberRepository.findByIdForValidation(member.getId());
+        if (!findMembers.isEmpty()) { // 중복된 ID가 있는 경우
+            throw new IllegalStateException("중복된 ID 입니다.");
         }
     }
 
