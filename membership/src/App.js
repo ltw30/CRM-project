@@ -248,8 +248,8 @@ function SignupForm() {
             <select
               className="dropdown"
               name="birthMonth"
-              value={formData.birthMonth}
               onChange={handleChange}
+              value={formData.birthMonth}
             >
               <option value="">월</option>
               {months.map((month) => (
